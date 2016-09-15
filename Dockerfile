@@ -5,7 +5,6 @@ ENV DJANGO_LISTEN_HOST 0.0.0.0
 
 RUN apt-get update
 RUN apt-get install -y python3 redis-server python3-pip python3-virtualenv postgresql-server-dev-all
-RUN /usr/bin/pip3 install pystuck
 
 ADD ./requirements.txt /tmp/requirements.txt
 
