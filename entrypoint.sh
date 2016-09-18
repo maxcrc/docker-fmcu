@@ -1,13 +1,27 @@
 #!/bin/bash
 
-
-if [[ $# > 0 ]]; then
-    exec $@
+if [[ $1 == 'waitfor' ]]; then
+	shift
+	[ -z ${1+x} ] || [ -z ${2+x} ] && echo -e 'Not enough arguments.\nwaitfor <HOST> <PORT>\n' && exit 1
+	HOST=$1
+	PORT=$2
+	COUNTER=3
+	echo -n "Waiting 60 seconds for service on ${HOST}:${PORT}"
+	while ! nc -q 1 ${HOST} ${PORT} </dev/null; do
+		echo -n '.'
+		sleep 1;
+		COUNTER=$((COUNTER - 1));[ $COUNTER -le 0 ] && echo "Timeout reached." && exit 2
+	done
+	echo -e "\nService is up."
+elif [[ $1 == 'shell' ]]; then
+	shift
+    exec /bin/bash
 fi
 
-/usr/bin/python3 ../manage.py migrate &
-MANAGE_PID=$!
-/bin/sleep 10
-kill $MANAGE_PID
+mv /tmp/asound.conf /etc/
 
-exec /usr/bin/python3 /opt/fmcu/source/webservice/manage.py runserver $DJANGO_LISTEN_HOST:$DJANGO_LISTEN_PORT
+#Doing this because of hanging manage,py
+/usr/bin/python3 ../manage.py migrate & PID=$!
+sleep 10; kill -9 $PID
+
+exec /usr/bin/python3 ../manage.py runserver $DJANGO_LISTEN_HOST:$DJANGO_LISTEN_PORT

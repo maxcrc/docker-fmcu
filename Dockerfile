@@ -1,11 +1,23 @@
 FROM armv7/armhf-ubuntu:16.04
 
-ENV DJANGO_LISTEN_PORT=8000 DJANGO_LISTEN_HOST=0.0.0.0 PYTHONPATH="/opt/fmcu/source/webservice/webservice" DJANGO_SETTINGS_MODULE="webservice.settings.dev"
+ENV DJANGO_LISTEN_PORT=8000 DJANGO_LISTEN_HOST=0.0.0.0 PYTHONPATH="/opt/facility-management-control-unit/source/webservice/webservice" DJANGO_SETTINGS_MODULE="webservice.settings.dev"
 
-RUN apt-get update && apt-get install -y python3 redis-server python3-pip python3-virtualenv postgresql-server-dev-all git
+COPY ./entrypoint.sh ./requirements.txt ./asound.conf /
 
-ADD ./requirements.txt /tmp/requirements.txt
-RUN /usr/bin/pip3 install -r /tmp/requirements.txt
+RUN apt-get update \
+	&& apt-get install -y \
+	git \
+	libsox-fmt-mp3 \
+	netcat \
+	postgresql-server-dev-all \
+	python3 \
+	python3-pip \
+	python3-virtualenv \
+	redis-server \
+	sox \
+ 	&& rm -rf /var/lib/apt/lists/*
+
+RUN /usr/bin/pip3 install -r /requirements.txt; rm /requirements.txt
 
 RUN cd /tmp; \
 	git clone https://github.com/hardkernel/WiringPi2-Python.git; \
@@ -13,14 +25,14 @@ RUN cd /tmp; \
 	git submodule init; \
 	git submodule update; \
 	/usr/bin/python3 setup.py install; \
-	cd -; \
-	rm -rf WiringPi2-Python 
+	cd - \
+	&& rm -rf WiringPi2-Python \
+	&& apt-get remove --purge git -y \
+	&& apt-get autoremove -y \
+	&& apt-get clean -y
 
-VOLUME ["/opt/fmcu"]
+VOLUME ["/opt/facility-management-control-unit"]
 
 EXPOSE $DJANGO_LISTEN_PORT 10072
-
-WORKDIR "/opt/fmcu/source/webservice/webservice"
-
-COPY entrypoint.sh /
+WORKDIR "/opt/facility-management-control-unit/source/webservice/webservice"
 ENTRYPOINT ["/entrypoint.sh"]
