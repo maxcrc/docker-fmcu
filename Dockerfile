@@ -2,8 +2,6 @@ FROM armv7/armhf-ubuntu:16.04
 
 ENV DJANGO_LISTEN_PORT=8000 DJANGO_LISTEN_HOST=0.0.0.0 PYTHONPATH="/opt/facility-management-control-unit/source/webservice/webservice" DJANGO_SETTINGS_MODULE="webservice.settings.dev"
 
-COPY ./entrypoint.sh ./requirements.txt ./asound.conf /
-
 RUN apt-get update \
 	&& apt-get install -y \
 	git \
