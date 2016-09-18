@@ -17,6 +17,8 @@ RUN apt-get update \
 	sox \
  	&& rm -rf /var/lib/apt/lists/*
 
+COPY ./entrypoint.sh ./requirements.txt ./asound.conf /
+
 RUN /usr/bin/pip3 install -r /requirements.txt; rm /requirements.txt
 
 RUN cd /tmp; \

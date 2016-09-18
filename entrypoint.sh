@@ -18,7 +18,7 @@ elif [[ $1 == 'shell' ]]; then
     exec /bin/bash
 fi
 
-mv /tmp/asound.conf /etc/
+mv /asound.conf /etc/
 
 #Doing this because of hanging manage,py
 /usr/bin/python3 ../manage.py migrate & PID=$!
