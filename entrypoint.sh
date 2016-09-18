@@ -5,8 +5,8 @@ if [[ $1 == 'waitfor' ]]; then
 	[ -z ${1+x} ] || [ -z ${2+x} ] && echo -e 'Not enough arguments.\nwaitfor <HOST> <PORT>\n' && exit 1
 	HOST=$1
 	PORT=$2
-	COUNTER=3
-	echo -n "Waiting 60 seconds for service on ${HOST}:${PORT}"
+	COUNTER=60
+	echo -n "Waiting ${COUNTER} seconds for service on ${HOST}:${PORT}"
 	while ! nc -q 1 ${HOST} ${PORT} </dev/null; do
 		echo -n '.'
 		sleep 1;
