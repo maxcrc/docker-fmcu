@@ -5,14 +5,19 @@ ENV DJANGO_LISTEN_PORT=8000 DJANGO_LISTEN_HOST=0.0.0.0 PYTHONPATH="/opt/facility
 RUN apt-get update \
 	&& apt-get install -y \
 	git \
+	libccid \
+	libpcsclite-dev\
+	libpcsclite1 \
 	libsox-fmt-mp3 \
 	netcat \
+	pcscd \
 	postgresql-server-dev-all \
 	python3 \
 	python3-pip \
 	python3-virtualenv \
 	redis-server \
 	sox \
+	swig \
  	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./entrypoint.sh ./requirements.txt ./asound.conf /
