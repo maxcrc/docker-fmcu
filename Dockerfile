@@ -15,6 +15,7 @@ RUN apt-get update \
 	python3 \
 	python3-pip \
 	python3-virtualenv \
+	python3-setuptools \
 	redis-server \
 	sox \
 	swig \
@@ -23,6 +24,10 @@ RUN apt-get update \
 COPY ./entrypoint.sh ./requirements.txt ./asound.conf /
 
 RUN /usr/bin/pip3 install -r /requirements.txt; rm /requirements.txt
+
+RUN git clone -b python3 git://github.com/bashwork/pymodbus.git \
+    && cd pymodbus \
+    && python3 setup.py install
 
 RUN cd /tmp; \
 	git clone https://github.com/hardkernel/WiringPi2-Python.git; \

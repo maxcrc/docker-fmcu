@@ -18,3 +18,5 @@ evdev
 pyscard
 ipython
 pycrypto
+odoorpc
+pytz
