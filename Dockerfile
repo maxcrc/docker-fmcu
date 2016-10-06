@@ -1,7 +1,4 @@
 FROM armv7/armhf-ubuntu:16.04
-
-ENV DJANGO_LISTEN_PORT=8000 DJANGO_LISTEN_HOST=0.0.0.0 PYTHONPATH="/opt/facility-management-control-unit/source/webservice/webservice" DJANGO_SETTINGS_MODULE="webservice.settings.dev"
-
 RUN apt-get update \
 	&& apt-get install -y \
 	git \
@@ -45,4 +42,6 @@ VOLUME ["/opt/facility-management-control-unit"]
 
 EXPOSE $DJANGO_LISTEN_PORT 10072
 WORKDIR "/opt/facility-management-control-unit/source/webservice/webservice"
+
+ENV START_PCSCD=0 DJANGO_LISTEN_PORT=8000 DJANGO_LISTEN_HOST=0.0.0.0 PYTHONPATH="/opt/facility-management-control-unit/source/webservice/webservice" DJANGO_SETTINGS_MODULE="webservice.settings.dev"
 ENTRYPOINT ["/entrypoint.sh"]

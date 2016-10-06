@@ -24,6 +24,9 @@ mv /asound.conf /etc/
 /usr/bin/python3 ../manage.py migrate & PID=$!
 sleep 10; kill -9 $PID
 
-#pcscd
+if [ ! -z $START_PCSCD ] && [ $START_PCSCD -ge 1 ]
+then
+    pcscd
+fi
 
 exec /usr/bin/python3 ../manage.py runserver $DJANGO_LISTEN_HOST:$DJANGO_LISTEN_PORT
