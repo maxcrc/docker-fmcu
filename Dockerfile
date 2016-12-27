@@ -16,6 +16,7 @@ RUN apt-get update \
 	redis-server \
 	sox \
 	swig \
+	iputils-ping \
  	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./entrypoint.sh ./requirements.txt ./asound.conf /
