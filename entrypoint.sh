@@ -24,9 +24,37 @@ mv /asound.conf /etc/
 /usr/bin/python3 ../manage.py migrate & PID=$!
 sleep 10; kill -9 $PID
 
+
+# Start pcscd.
+# Try 10 times. 
 if [ ! -z $START_PCSCD ] && [ $START_PCSCD -ge 1 ]
 then
-    pcscd
+    ATTEMPT=0
+    ATTEMPTS=10
+    STARTED=false
+    echo "pcscd. Starting pcscd service."
+
+    while [ $ATTEMPT -le $ATTEMPTS ]
+    do
+	echo "Attempt ${ATTEMPT}/${ATTEMPTS}"
+	pcscd
+	sleep 1
+	
+	if pgrep -x pcscd > /dev/null
+	then
+	    echo "pcscd. Started."
+	    STARTED=true
+	    break
+	fi
+
+	ATTEMPT=$((ATTEMPT + 1))
+    done
+
+    if  [ $STARTED == false ]
+    then
+	echo "pcscd. Cannot start pcscd exiting."
+	exit 1
+    fi
 fi
 
 exec /usr/bin/python3 ../manage.py runserver $DJANGO_LISTEN_HOST:$DJANGO_LISTEN_PORT
