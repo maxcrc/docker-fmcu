@@ -10,3 +10,6 @@ pytz==2016.6.1
 soco==0.12
 Automat==0.3.0
 tornado==4.4.2
+simple-settings==0.10.0
+tornado-jinja2==0.2.4
+eventlet==0.20.1
