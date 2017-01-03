@@ -23,7 +23,7 @@ RUN git clone -b python3 git://github.com/bashwork/pymodbus.git \
 VOLUME ["/opt/facility-management-control-unit"]
 
 EXPOSE $LISTEN_PORT 8000
-WORKDIR "/opt/facility-management-control-unit/source/webservice/webservice"
+WORKDIR "/opt/facility-management-control-unit/source/webservice"
 
-ENV PYTHONPATH="/opt/facility-management-control-unit/source/webservice/webservice" SETTINGS_MODULE="webservice.settings.prod"
+ENV PYTHONPATH="/opt/facility-management-control-unit/source/webservice" SETTINGS_MODULE="settings.base"
 ENTRYPOINT ["/entrypoint.sh"]
