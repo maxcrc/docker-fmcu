@@ -22,7 +22,7 @@ RUN /usr/bin/pip3 install -r /requirements.txt; rm /requirements.txt
 
 VOLUME ["/opt/facility-management-control-unit"]
 
-VOLUME ["/var/log"]
+VOLUME ["/var/log/fmcu"]
 
 VOLUME ["/var/lib/fmcu"]
 
