@@ -22,7 +22,12 @@ RUN /usr/bin/pip3 install -r /requirements.txt; rm /requirements.txt
 
 VOLUME ["/opt/facility-management-control-unit"]
 
+VOLUME ["/var/log"]
+
+VOLUME ["/var/lib/fmcu"]
+
 WORKDIR "/opt/facility-management-control-unit/source/webservice"
 
 ENV PYTHONPATH="/opt/facility-management-control-unit/source/webservice" SETTINGS_MODULE="settings.base"
+
 ENTRYPOINT ["/entrypoint.sh"]
