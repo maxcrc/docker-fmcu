@@ -44,5 +44,12 @@ VOLUME ["/opt/facility-management-control-unit"]
 EXPOSE $DJANGO_LISTEN_PORT 10072
 WORKDIR "/opt/facility-management-control-unit/source/webservice/webservice"
 
-ENV START_PCSCD=0 DJANGO_LISTEN_PORT=8000 DJANGO_LISTEN_HOST=0.0.0.0 PYTHONPATH="/opt/facility-management-control-unit/source/webservice/webservice" DJANGO_SETTINGS_MODULE="webservice.settings.dev"
+ENV START_PCSCD=0 \
+	DJANGO_LISTEN_PORT=8000 \
+	DJANGO_LISTEN_HOST=0.0.0.0 \
+	PYTHONPATH="/opt/facility-management-control-unit/source/webservice/webservice" \
+	DJANGO_SETTINGS_MODULE="webservice.settings.dev" \
+	PCSCD_LOG_PATH="/opt/facility-management-control-unit/source/webservice/webservice/logs/pcscd.log" \
+	PCSCD_LOG_LEVEL="error"
+	
 ENTRYPOINT ["/entrypoint.sh"]

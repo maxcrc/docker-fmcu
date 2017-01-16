@@ -37,7 +37,7 @@ then
     while [ $ATTEMPT -le $ATTEMPTS ]
     do
 	echo "Attempt ${ATTEMPT}/${ATTEMPTS}"
-	pcscd
+	pcscd --"${PCSCD_LOG_LEVEL}" --foreground &>"${PCSCD_LOG_PATH}" &
 	sleep 1
 	
 	if pgrep -x pcscd > /dev/null
