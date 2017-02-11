@@ -37,7 +37,7 @@ RUN cd /tmp; \
 	&& apt-get autoremove -y \
 	&& apt-get clean -y
 
-VOLUME ["/opt/facility-management-control-unit"]
+VOLUME ["/opt/facility-management-control-unit", "/var/log/fmcu"]
 
 ENV START_PCSCD=0 \
 	PORT=8888 \
