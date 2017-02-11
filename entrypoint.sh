@@ -20,11 +20,6 @@ fi
 
 mv /asound.conf /etc/
 
-#Doing this because of hanging manage,py
-/usr/bin/python3 ../manage.py migrate & PID=$!
-sleep 10; kill -9 $PID
-
-
 # Start pcscd.
 # Try 10 times. 
 if [ ! -z $START_PCSCD ] && [ $START_PCSCD -ge 1 ]
@@ -57,4 +52,4 @@ then
     fi
 fi
 
-exec /usr/bin/python3 ../manage.py runserver $DJANGO_LISTEN_HOST:$DJANGO_LISTEN_PORT
+exec /usr/bin/python3 ./run.py --settings="${SETTINGS}"

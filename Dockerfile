@@ -8,12 +8,10 @@ RUN apt-get update \
 	libsox-fmt-mp3 \
 	netcat \
 	pcscd \
-	postgresql-server-dev-all \
 	python3 \
 	python3-pip \
 	python3-virtualenv \
 	python3-setuptools \
-	redis-server \
 	sox \
 	swig \
 	iputils-ping \
@@ -41,15 +39,14 @@ RUN cd /tmp; \
 
 VOLUME ["/opt/facility-management-control-unit"]
 
-EXPOSE $DJANGO_LISTEN_PORT 10072
-WORKDIR "/opt/facility-management-control-unit/source/webservice/webservice"
-
 ENV START_PCSCD=0 \
-	DJANGO_LISTEN_PORT=8000 \
-	DJANGO_LISTEN_HOST=0.0.0.0 \
+	PORT=8888 \
 	PYTHONPATH="/opt/facility-management-control-unit/source/webservice/webservice" \
-	DJANGO_SETTINGS_MODULE="webservice.settings.dev" \
+	SETTINGS="webservice.settings.dev" \
 	PCSCD_LOG_PATH="/opt/facility-management-control-unit/source/webservice/webservice/logs/pcscd.log" \
 	PCSCD_LOG_LEVEL="error"
+
+EXPOSE $PORT
+WORKDIR "/opt/facility-management-control-unit/source/webservice"
 	
 ENTRYPOINT ["/entrypoint.sh"]
