@@ -44,7 +44,10 @@ ENV START_PCSCD=0 \
 	PYTHONPATH="/opt/facility-management-control-unit/source/webservice/webservice" \
 	SETTINGS="webservice.settings.dev" \
 	PCSCD_LOG_PATH="/opt/facility-management-control-unit/source/webservice/webservice/logs/pcscd.log" \
-	PCSCD_LOG_LEVEL="error"
+	PCSCD_LOG_LEVEL="error" \
+	TZ=Europe/Berlin
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 EXPOSE $PORT
 WORKDIR "/opt/facility-management-control-unit/source/webservice"
