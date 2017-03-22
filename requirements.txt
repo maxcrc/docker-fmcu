@@ -18,3 +18,4 @@ tornado-jinja2==0.2.4
 tornado==4.4.2
 transitions==0.3.1
 xmltodict==0.10.2
+simplepam==0.1.5
