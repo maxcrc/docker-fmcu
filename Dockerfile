@@ -15,6 +15,7 @@ RUN apt-get update \
 	sox \
 	swig \
 	iputils-ping \
+	git \
  	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./entrypoint.sh ./requirements.txt ./asound.conf /
