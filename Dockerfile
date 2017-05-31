@@ -15,7 +15,6 @@ RUN apt-get update \
 	sox \
 	swig \
 	iputils-ping \
-	git \
  	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./entrypoint.sh ./requirements.txt ./asound.conf /
@@ -34,7 +33,6 @@ RUN cd /tmp; \
 	/usr/bin/python3 setup.py install; \
 	cd - \
 	&& rm -rf WiringPi2-Python \
-	&& apt-get remove --purge git -y \
 	&& apt-get autoremove -y \
 	&& apt-get clean -y
 
