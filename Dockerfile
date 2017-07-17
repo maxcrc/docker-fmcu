@@ -30,6 +30,7 @@ RUN cd /tmp; \
 	cd WiringPi2-Python; \
 	git submodule init; \
 	git submodule update; \
+	swig3.0 -python -threads wiringpi.i; \
 	/usr/bin/python3 setup.py install; \
 	cd - \
 	&& rm -rf WiringPi2-Python \
