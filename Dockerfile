@@ -37,6 +37,21 @@ RUN cd /tmp; \
 	&& apt-get autoremove -y \
 	&& apt-get clean -y
 
+
+RUN 	apt-get update &&\
+	apt-get install -y \
+	libusb-1.0-0-dev \
+	libusb-1.0-0 \
+	libudev-dev \
+	pkg-config \
+	sudo \
+ 	&& rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://github.com/Yepkit/ykush.git \
+    && cd ykush \
+    && ./build.sh \
+    && ./install.sh
+
 VOLUME ["/opt/facility-management-control-unit", "/var/log/fmcu"]
 
 ENV START_PCSCD=0 \
